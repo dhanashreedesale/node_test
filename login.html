@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page · Modern UI</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #f6f9fc 0%, #e9f1f8 100%);
+      padding: 1.5rem;
+    }
+
+    /* card container */
+    .login-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 3rem 2.8rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 
+        0 20px 40px rgba(0, 20, 40, 0.08),
+        0 8px 24px rgba(0, 20, 40, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+
+    .login-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 32px 56px rgba(0, 20, 40, 0.12);
+    }
+
+    /* header */
+    .login-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .login-header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0b1a2e;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .login-header h1 i {
+      color: #2a7de1;
+      font-size: 2rem;
+      background: rgba(42, 125, 225, 0.12);
+      padding: 0.4rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    .login-header p {
+      color: #5a6f87;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* form */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8ba0b9;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+      pointer-events: none;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3.2rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1.5px solid rgba(0, 0, 0, 0.06);
+      border-radius: 60px;
+      outline: none;
+      transition: all 0.25s;
+      color: #0b1a2e;
+      font-weight: 450;
+      backdrop-filter: blur(4px);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+    }
+
+    .input-group input:focus {
+      border-color: #2a7de1;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 0 4px rgba(42, 125, 225, 0.15), inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .input-group input:focus + i,
+    .input-group input:focus ~ i {
+      color: #2a7de1;
+    }
+
+    .input-group input::placeholder {
+      color: #9aafc4;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    /* extras (remember + forgot) */
+    .login-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #2c4058;
+      cursor: pointer;
+    }
+
+    .remember-me input[type="checkbox"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #cbd8e6;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      transition: 0.15s;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .remember-me input[type="checkbox"]:checked {
+      background: #2a7de1;
+      border-color: #2a7de1;
+    }
+
+    .remember-me input[type="checkbox"]:checked::after {
+      content: "\f00c";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 12px;
+      color: white;
+    }
+
+    .forgot-link {
+      color: #2a7de1;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .forgot-link:hover {
+      color: #1a5bbf;
+      border-bottom-color: #1a5bbf;
+    }
+
+    /* button */
+    .btn-signin {
+      background: #0b1a2e;
+      border: none;
+      padding: 1rem 1.8rem;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 0.4rem;
+      box-shadow: 0 8px 16px rgba(11, 26, 46, 0.15);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-signin i {
+      font-size: 1.2rem;
+      transition: transform 0.25s;
+    }
+
+    .btn-signin:hover {
+      background: #1a2f47;
+      transform: scale(1.02);
+      box-shadow: 0 12px 24px rgba(11, 26, 46, 0.25);
+    }
+
+    .btn-signin:hover i {
+      transform: translateX(4px);
+    }
+
+    .btn-signin:active {
+      transform: scale(0.97);
+    }
+
+    /* signup link */
+    .signup-text {
+      text-align: center;
+      margin-top: 2rem;
+      color: #4d657e;
+      font-size: 0.95rem;
+    }
+
+    .signup-text a {
+      color: #0b1a2e;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .signup-text a:hover {
+      color: #2a7de1;
+      border-bottom-color: #2a7de1;
+    }
+
+    /* demo hint (optional) */
+    .demo-hint {
+      margin-top: 1.8rem;
+      padding: 0.6rem 1rem;
+      background: rgba(42, 125, 225, 0.06);
+      border-radius: 60px;
+      font-size: 0.8rem;
+      color: #3a5a7a;
+      text-align: center;
+      border: 1px dashed rgba(42, 125, 225, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .demo-hint i {
+      color: #2a7de1;
+      font-size: 0.9rem;
+    }
+
+    .demo-hint span {
+      background: rgba(0,0,0,0.02);
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-family: 'Menlo', monospace;
+      color: #1a3b5c;
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 2rem 1.5rem;
+        border-radius: 36px;
+      }
+      .login-header h1 {
+        font-size: 1.8rem;
+      }
+      .login-options {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      .btn-signin {
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-header">
+      <h1>
+        <i class="fas fa-lock"></i> 
+        Sign in
+      </h1>
+      <p>Welcome back · access your dashboard</p>
+    </div>
+
+    <form class="login-form" id="loginForm" action="#" method="POST">
+      <!-- email / username -->
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Email address" required autofocus>
+        <i class="fas fa-envelope"></i>
+      </div>
+
+      <!-- password -->
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" required minlength="6">
+        <i class="fas fa-key"></i>
+      </div>
+
+      <!-- options row -->
+      <div class="login-options">
+        <label class="remember-me">
+          <input type="checkbox" id="rememberCheck" checked>
+          <span>Remember me</span>
+        </label>
+        <a href="#" class="forgot-link">Forgot?</a>
+      </div>
+
+      <!-- sign in button -->
+      <button type="submit" class="btn-signin">
+        <span>Sign in</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <!-- sign up link -->
+    <div class="signup-text">
+      Don’t have an account? <a href="#">Create one</a>
+    </div>
+
+    <!-- tiny demo hint (not part of real UI) -->
+    <div class="demo-hint">
+      <i class="fas fa-info-circle"></i> 
+      <span>demo: any email · password: 123456</span>
+    </div>
+  </div>
+
+  <!-- minimal JS for demo interaction (prevent default & show feedback) -->
+  <script>
+    (function() {
+      const form = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const rememberCheck = document.getElementById('rememberCheck');
+
+      // optional: prefill for demo convenience
+      emailInput.value = 'demo@example.com';
+      passwordInput.value = '123456';
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // simple validation (just for demo)
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!email || !password) {
+          alert('⛔ Please fill in both email and password.');
+          return;
+        }
+
+        if (password.length < 6) {
+          alert('⛔ Password must be at least 6 characters.');
+          return;
+        }
+
+        // success simulation
+        const remember = rememberCheck.checked;
+        console.log(`✅ Login attempt | email: ${email} | remember: ${remember}`);
+
+        // visual feedback
+        const btn = form.querySelector('.btn-signin');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Welcome</span><i class="fas fa-check-circle"></i>`;
+        btn.style.background = '#1d8a5c';
+        btn.style.transform = 'scale(0.98)';
+
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '#0b1a2e';
+          btn.style.transform = '';
+          alert('🎉 Signed in successfully! (demo flow)');
+        }, 800);
+      });
+
+      // extra: remove prefill on focus (optional)
+      emailInput.addEventListener('focus', function() {
+        if (this.value === 'demo@example.com') {
+          this.select();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
